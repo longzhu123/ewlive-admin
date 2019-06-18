@@ -1,0 +1,38 @@
+#app {
+  .main-container {
+    .main-left {
+      overflow-x: hidden!important;
+      .el-menu {
+        border: none;
+        height: auto;
+        width: 100% !important;
+
+        .el-menu-item-group__title {
+          display: none;
+        }
+      }
+
+      // menu hover
+      .submenu-title-noDropdown,
+      .el-submenu__title {
+        &:hover {
+          background-color: $menuHover !important;
+        }
+      }
+
+      .is-active > .el-submenu__title {
+        color: $subMenuActiveText !important;
+      }
+
+      & .nest-menu .el-submenu > .el-submenu__title,
+      & .el-submenu .el-menu-item {
+        min-width: $sideBarWidth !important;
+        background-color: $subMenuBg !important;
+
+        &:hover {
+          background-color: $subMenuHover !important;
+        }
+      }
+    }
+  }
+}
