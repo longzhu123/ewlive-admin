@@ -9,38 +9,26 @@
       <table id="addTable">
         <tr>
           <td>
-            <el-form-item label="用户名" label-width="80px" prop="username">
-              <el-input v-model="addForm.username" placeholder="请输入用户名"></el-input>
+            <el-form-item label="姓名" label-width="80px" prop="name">
+              <el-input v-model="addForm.name" placeholder="请输入姓名"></el-input>
             </el-form-item>
           </td>
           <td>
-            <el-form-item label="密码" label-width="80px" prop="password">
-              <el-input v-model="addForm.password" placeholder="请输入密码"></el-input>
+            <el-form-item label="昵称" label-width="80px" prop="nickName">
+              <el-input v-model="addForm.nickName" placeholder="请输入昵称"></el-input>
             </el-form-item>
           </td>
         </tr>
-        <tr>
-          <td>
-            <el-form-item label="年龄" label-width="80px" prop="age">
-              <el-input type="number" v-model.number="addForm.age" placeholder="请输入年龄"></el-input>
-            </el-form-item>
-          </td>
-          <td>
-            <el-form-item label="出生日期" label-width="80px" prop="borth">
-              <el-date-picker type="date" placeholder="选择出生日期" v-model="addForm.borth"
-                              style="width: 100%"></el-date-picker>
-            </el-form-item>
-          </td>
-        </tr>
+
         <tr>
           <td colspan="2">
-            <el-form-item label="学历" label-width="80px" prop="edu">
+            <el-form-item label="开播状态" label-width="80px" prop="playState">
               <el-select v-model="addForm.edu" filterable placeholder="请选择学历" style="width: 100%">
                 <el-option
-                  v-for="item in eduList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  v-for="item in commonSelectList.playStateList"
+                  :key="item.dicItemCode"
+                  :label="item.dicItemName"
+                  :value="item.dicItemCode">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -48,7 +36,16 @@
         </tr>
         <tr>
           <td colspan="2">
-            <el-form-item label="附件" label-width="80px" prop="aboutFile" ref="addAboutFile">
+            <el-form-item label="开播时间" label-width="80px" prop="playTime">
+              <el-date-picker type="date" placeholder="选择开播时间" v-model="addForm.playTime"
+                              style="width: 100%"></el-date-picker>
+            </el-form-item>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <el-form-item label="相关附件" label-width="80px" prop="aboutFile" ref="addAboutFile">
               <el-upload
                 action="https://jsonplaceholder.typicode.com/posts/"
                 :on-success="addAboutFileSuccess"
@@ -86,24 +83,21 @@
         type: Boolean,
         required: true
       },
-      eduList: {
-        type: Array,
-        required: true
-      },
-      editRules: {
+      commonSelectList: {
         type: Object,
         required: true
-      }
+      },
+
     },
     data() {
       return {
-        addForm: {  //添加表单的对象
-          username: '',
-          password: '',
-          age: '',
-          borth: '',
-          edu: '',
-          aboutFile: []
+        addForm: {},//添加表单的对象
+        editRules: {//编辑时表单的校验规则对象
+          name: [{required: true, message: '请输入姓名', trigger: 'blur'}],
+          nickName: [{required: true, message: '请输入昵称', trigger: 'blur'}],
+          playState: [{required: true, message: '请输入开播状态', trigger: 'blur'}],
+          playTime: [{required: true, message: '请输入开播时间', trigger: 'blur'}],
+          aboutFile: [{required: true, message: '请选择附件', trigger: 'change'}]
         }
       }
     },

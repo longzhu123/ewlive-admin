@@ -116,6 +116,8 @@
 
     <!--添加模态框-->
     <div id="addDialog">
+      <Add :addDialogVisible="addDialogVisible" :commonSelectList="commonSelectList"
+           @closeAddDialog="closeAddDialog"/>
     </div>
 
     <!--查看详情模态框-->
@@ -132,9 +134,12 @@
   import * as StringConstants from "../../../../constants/StringConstants";
   import request from '@/utils/request';
   import util from '@/utils/util';
-
+  import Add from "./component/Add";
+  import ViewDetail from "./component/View";
+  //import Update from "./component/Update";
   export default {
     name: 'crud',
+    components: {Add, ViewDetail},
     data() {
       return {
         tableData: [],//表格数据对象
@@ -164,7 +169,10 @@
               return time.getTime() < beginDateVal;
             }
           }
-        }
+        },
+        addDialogVisible: false,  //添加模态框是否可见
+        viewDialogVisible: false, //查看模态框是否可见
+        updateDialogVisible: false,//修改模态框是否可见
       }
     },
     mounted() {
@@ -289,6 +297,10 @@
         }).then((resp) => {
           _this.commonSelectList.playStateList = resp.data;
         });
+      },
+      //关闭添加模态框
+      closeAddDialog(val) {
+        this.addDialogVisible = val;
       }
     }
   }
